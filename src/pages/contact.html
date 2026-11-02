@@ -1,0 +1,43 @@
+{{> header}}
+
+<section class="wrap grid12" style="padding: 96px var(--gutter) 120px; align-items: start">
+  <div class="stack" style="grid-column: 1 / span 5; gap: 48px">
+    <div class="stack" style="gap: 24px">
+      <p class="label label-gold">Contact</p>
+      <h1 class="display">Say hello</h1>
+      <p class="lede" style="max-width: 440px">Ask about an original, a commission or a print order, or share what a piece means to you. Roosevelt reads and answers every message himself.</p>
+    </div>
+    <dl class="stack rule-t-strong" style="font-size: 16px">
+      <div style="display: grid; grid-template-columns: 120px 1fr; gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--rule)"><dt class="label label-stone">Email</dt><dd><a href="mailto:{{email}}">{{email}}</a></dd></div>
+      <div style="display: grid; grid-template-columns: 120px 1fr; gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--rule)"><dt class="label label-stone">Studio</dt><dd>{{studio}}</dd></div>
+      <div style="display: grid; grid-template-columns: 120px 1fr; gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--rule)"><dt class="label label-stone">Follow</dt><dd><a href="{{instagram}}" rel="noopener" target="_blank">Instagram</a></dd></div>
+    </dl>
+    <img src="images/deyoung-sign.jpg" alt="Roosevelt Washington at the de Young Open" style="max-width: 420px">
+  </div>
+
+  <form class="stack" style="grid-column: 7 / span 6; gap: 36px; padding-top: 24px" action="{{form_action}}" method="POST" data-contact-form>
+    <div class="grid2 two-up" style="gap: 36px 24px">
+      <div class="field"><label for="first">First name</label><input id="first" name="first_name" type="text" required></div>
+      <div class="field"><label for="last">Last name</label><input id="last" name="last_name" type="text" required></div>
+    </div>
+    <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" required></div>
+    <div class="field">
+      <label for="topic">What is this about?</label>
+      <select id="topic" name="topic">
+        <option>A print order</option>
+        <option>An original work</option>
+        <option>A commission</option>
+        <option>Classes and workshops</option>
+        <option>Something else</option>
+      </select>
+    </div>
+    <div class="field"><label for="msg">Message</label><textarea id="msg" name="message" rows="5"></textarea></div>
+    <label style="display: flex; gap: 14px; align-items: flex-start; font-size: 15px; line-height: 1.5; color: var(--bone)">
+      <input type="checkbox" name="newsletter" value="yes" style="width: 18px; height: 18px; margin: 3px 0 0; accent-color: #fff">
+      <span>Email me when new prints are released, and let me vote on what comes next.</span>
+    </label>
+    <button type="submit" class="btn" style="min-height: 64px; align-self: flex-start">Send message</button>
+  </form>
+</section>
+
+{{> footer}}

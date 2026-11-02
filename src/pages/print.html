@@ -1,0 +1,66 @@
+{{> header}}
+
+<div class="wrap label label-stone" style="padding-top: 24px">
+  <a href="../shop.html" style="color: var(--stone)">Shop</a><span aria-hidden="true" style="padding: 0 14px">/</span><span style="color: var(--white)">{{p.title}}</span>
+</div>
+
+<section class="wrap" style="padding-top: 40px">
+  <div class="mat" style="padding: 20px"><img src="../{{p.image}}" alt="{{p.alt}}"></div>
+</section>
+
+<section class="wrap rule-b grid12" style="padding: 56px var(--gutter) 96px">
+  <div class="stack" style="grid-column: 1 / span 7; gap: 32px">
+    <div class="stack" style="gap: 16px">
+      <p class="label label-gold">{{p.number}} · Limited print</p>
+      <h1 class="display">{{p.title}}</h1>
+      <p style="font-size: 15px; letter-spacing: 0.06em; color: var(--bone)">{{p.medium}}{{p.year_dot}} · Virginia</p>
+    </div>
+    <p style="font-size: 22px; font-weight: 300; line-height: 1.5; max-width: 640px">{{p.story}}</p>
+  </div>
+
+  <div class="stack rule-t-strong" style="grid-column: 9 / span 4; gap: 28px; padding-top: 24px" data-product="{{p.slug}}" data-shopify-id="{{p.shopify_product_id}}">
+    <div class="row">
+      <span class="label label-stone">Price</span>
+      <span style="font-size: 32px; font-weight: 300">${{p.price}}</span>
+    </div>
+    <div class="stack" style="gap: 12px">
+      <span class="label label-stone">Size</span>
+      <div style="display: flex; flex-wrap: wrap; gap: 10px" role="group" aria-label="Print size">
+        <button type="button" class="pill">{{p.size}}</button>
+        <button type="button" class="pill" disabled>More sizes soon</button>
+      </div>
+    </div>
+    <div class="stack" style="gap: 12px">
+      <label for="qty" class="label label-stone">Quantity</label>
+      <input id="qty" class="qty" type="number" value="1" min="1" data-qty>
+    </div>
+    <button type="button" class="btn" style="min-height: 64px" data-add-to-cart>Add to cart</button>
+    <dl class="spec">
+      <div><dt>Edition</dt><dd>Limited set of {{p.edition}}</dd></div>
+      <div><dt>Made</dt><dd>Entirely by hand by the artist</dd></div>
+      <div><dt>Size</dt><dd>{{p.size}}</dd></div>
+      <div><dt>Paper</dt><dd>{{p.paper}}</dd></div>
+    </dl>
+    <p style="font-size: 14px; line-height: 1.6; color: var(--stone)">Interested in the original? <a href="../contact.html">Send a note.</a></p>
+  </div>
+</section>
+
+<section class="wrap section rule-b stack" style="gap: 40px">
+  <div class="row">
+    <h2 class="label label-gold">Perspectives</h2>
+    <p style="font-size: 15px; color: var(--stone)">Detail views{{p.context_note}}</p>
+  </div>
+  <div class="grid12" style="align-items: start">
+    {{perspectives}}
+  </div>
+  {{context}}
+</section>
+
+<section class="wrap section stack" style="gap: 40px">
+  <h2 class="label label-gold">More from the release</h2>
+  <div class="grid4">
+    {{more}}
+  </div>
+</section>
+
+{{> footer}}

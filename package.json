@@ -1,0 +1,13 @@
+{
+  "name": "rooseveltwashington-art",
+  "version": "0.1.0",
+  "private": true,
+  "description": "rooseveltwashington.art — static site for artist Roosevelt Washington, with Shopify checkout.",
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "dev": "node build.mjs && npx --yes serve dist -l 4173",
+    "deploy": "node build.mjs && npx --yes wrangler pages deploy dist --project-name rooseveltwashington-art"
+  },
+  "license": "UNLICENSED"
+}

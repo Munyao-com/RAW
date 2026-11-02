@@ -1,0 +1,18 @@
+{
+  "name": "Roosevelt Washington",
+  "domain": "rooseveltwashington.art",
+  "tagline": "Fine art in pastel pencil.",
+  "description": "Original pastel pencil works and limited prints by artist Roosevelt Washington.",
+  "email": "[EMAIL ADDRESS]",
+  "instagram": "https://instagram.com/",
+  "studio": "Virginia, USA",
+  "hero_product": "innocence",
+  "home_release_count": 5,
+  "year": "2026",
+  "noindex": true,
+  "shopify": {
+    "enabled": false,
+    "domain": "",
+    "storefront_access_token": ""
+  }
+}
