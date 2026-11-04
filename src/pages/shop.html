@@ -1,12 +1,19 @@
 {{> header}}
 
-<section class="wrap rule-b" style="padding: 96px var(--gutter) 56px; display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 32px 64px">
-  <div class="stack" style="gap: 24px; max-width: 860px">
-    <p class="label label-gold">Shop · Limited prints</p>
+<section class="wrap rule-b shop-head">
+  <div class="stack" style="gap: 20px; max-width: 760px">
+    <p class="label label-gold">Shop · Limited prints · 16 × 20 in · $500</p>
     <h1 class="display">Prints</h1>
-    <p class="lede" style="max-width: 640px">Each work is released as a limited set of 16 × 20 inch prints. Everything is done by hand by the artist, down to the signature on each one. New works are released on the first of each month.</p>
+    <p class="lede" style="max-width: 600px">Each work is released as a limited set of signed prints, made by hand by the artist. New works arrive on the first of each month.</p>
   </div>
-  <nav class="nav" aria-label="Filter" data-filter style="gap: 8px 32px">
+  <div class="shop-artist">
+    <img src="images/deyoung-2.jpg" alt="Roosevelt Washington">
+    <p class="label label-stone">The artist · Roosevelt Washington</p>
+  </div>
+</section>
+
+<section class="wrap" style="padding-top: 32px">
+  <nav class="nav filter-bar" aria-label="Filter" data-filter>
     <a href="#all" data-tag="all" style="border-bottom: 1px solid #fff; padding-bottom: 6px">All · {{count}}</a>
     <a href="#family" data-tag="family" style="color: var(--stone)">Family</a>
     <a href="#landscape" data-tag="landscape" style="color: var(--stone)">Landscape</a>
@@ -14,14 +21,14 @@
   </nav>
 </section>
 
-<section class="wrap grid2" style="padding-bottom: var(--section); gap: 0 48px" data-shop-grid>
+<section class="wrap print-grid" style="padding-top: 40px; padding-bottom: var(--section)" data-shop-grid>
   {{products}}
 </section>
 
-<section class="wrap section rule-t" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 32px 64px">
+<section class="wrap section-sm rule-t" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 32px 64px">
   <div class="stack" style="gap: 16px; max-width: 760px">
     <p class="label label-gold">Originals</p>
-    <h2 class="headline" style="font-size: 48px">Original works are sold by private inquiry.</h2>
+    <h2 class="headline" style="font-size: 44px">Original works are sold by private inquiry.</h2>
     <p class="body" style="max-width: 600px">Each original is one of a kind and comes with a signed certificate. The artist keeps copyright, and resale terms are shared with every collector.</p>
   </div>
   <a class="btn btn-ghost" href="contact.html">Inquire</a>

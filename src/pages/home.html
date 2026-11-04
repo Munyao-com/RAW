@@ -1,60 +1,47 @@
 {{> header}}
 
-<section class="hero">
-  <img src="{{hero.image}}" alt="{{hero.alt}}">
-  <div class="hero-text">
-    <h1 class="display-sm">Fine art,<br>by hand.</h1>
-    <div class="hero-caption">
-      <p class="label" style="color: var(--bone)">{{hero.title}}{{hero.year_dot}}</p>
-      <a class="link-u" href="shop.html" style="font-size: 15px; padding-bottom: 6px">View the prints</a>
+<section class="wrap hero-split rule-b">
+  <div class="hero-copy">
+    <p class="label label-gold">The artist</p>
+    <h1 class="display-sm">Roosevelt Washington.<br>Every piece by his own hand.</h1>
+    <p class="lede">Self-taught in East Oakland. Shown at the de Young Museum. He works in oil, pastel, charcoal and more, and draws and paints every work himself in his Virginia studio. Nothing on this site is made by a machine.</p>
+    <div class="hero-actions">
+      <a class="btn" href="shop.html">Shop the prints</a>
+      <a class="link-u" href="about.html" style="letter-spacing: 0.18em; padding-bottom: 6px">His story</a>
     </div>
   </div>
+  <figure class="hero-photo">
+    <img src="images/studio.jpg" alt="Roosevelt Washington at his easel, drawing Innocence by hand">
+    <figcaption class="label label-stone">In the studio, Virginia · Working on “Innocence”</figcaption>
+  </figure>
 </section>
 
-<section class="wrap rule-b" style="padding: 120px var(--gutter) 96px; display: flex; flex-wrap: wrap; gap: 40px 80px">
-  <p class="label label-gold" style="flex: 0 0 200px">The work</p>
-  <p class="statement" style="flex: 1 1 600px; min-width: 0; max-width: 980px">Roosevelt Washington draws Black family life with a closeness you can feel. Fathers with newborns. Sisters carrying brothers. Mothers at work. Self-taught in East Oakland, shown at the de Young Museum, working in oil, pastel, charcoal and more, every piece made by hand in his Virginia studio.</p>
-</section>
-
-<section class="wrap" style="padding-top: var(--section)">
-  <div class="row" style="padding-bottom: 40px">
-    <h2 class="label label-gold">First release · {{release_count_words}} works · Limited prints · 16 × 20 in</h2>
+<section class="wrap section-sm rule-b">
+  <div class="row" style="padding-bottom: 32px">
+    <h2 class="label label-gold">First release · {{release_count_words}} works · Limited prints · 16 × 20 in · $500</h2>
     <a class="link-u" href="shop.html" style="letter-spacing: 0.18em; padding-bottom: 6px; border-color: rgba(255,255,255,0.5)">All prints</a>
   </div>
-  {{release}}
+  <div class="print-grid">
+    {{release}}
+  </div>
+  <p class="label label-stone" style="padding-top: 28px">Click any work to see it full size</p>
 </section>
 
-<section class="wrap rule-b grid12" style="padding-bottom: var(--section); align-items: end">
-  <img src="images/studio.jpg" alt="Roosevelt Washington drawing Innocence at his easel" style="grid-column: 1 / span 7">
-  <div class="stack" style="grid-column: 9 / span 4; gap: 24px; padding-bottom: 24px">
-    <p class="label label-gold">The artist</p>
-    <p style="font-size: 34px; font-weight: 300; line-height: 1.2; letter-spacing: -0.015em">Self-taught in East Oakland. Shown at the de Young Museum. Everything done by hand, in his Virginia studio.</p>
-    <p class="label label-stone">In the studio, Virginia</p>
+<section class="wrap section-sm rule-b grid12 artist-strip">
+  <figure class="stack" style="grid-column: 1 / span 4; gap: 14px">
+    <img src="images/deyoung-2.jpg" alt="Roosevelt Washington beside his work at the de Young Museum, San Francisco">
+    <figcaption class="label label-stone">de Young Open · San Francisco</figcaption>
+  </figure>
+  <div class="stack" style="grid-column: 6 / span 7; gap: 24px; align-self: center">
+    <p class="statement">Black fathers. Black mothers. Sisters and brothers. Love you can see, drawn with a closeness you can feel.</p>
+    <p class="body" style="max-width: 560px">Everything is done by hand, from the first line to the signature. Each piece is built up layer by layer until the skin, the light and the feeling are right. Prints are released as limited sets. Originals are sold by inquiry.</p>
     <a class="link-u" href="about.html" style="letter-spacing: 0.18em; padding-bottom: 6px; align-self: flex-start">Read his story</a>
   </div>
 </section>
 
-<section class="wrap section rule-b grid3" style="gap: 48px">
-  <div class="stack rule-t-strong" style="gap: 16px; padding-top: 24px">
-    <span class="num">01</span>
-    <h3 style="font-size: 22px; font-weight: 400">A limited set</h3>
-    <p class="body" style="font-size: 16px">Each work is released as a limited set of prints. When the set is gone, it is gone.</p>
-  </div>
-  <div class="stack rule-t-strong" style="gap: 16px; padding-top: 24px">
-    <span class="num">02</span>
-    <h3 style="font-size: 22px; font-weight: 400">Done by hand</h3>
-    <p class="body" style="font-size: 16px">Everything is done by hand by the artist, from the first line to the signature. Each piece is built up layer by layer, in oil, pastel, charcoal or pencil, until the skin, the light and the feeling are right.</p>
-  </div>
-  <div class="stack rule-t-strong" style="gap: 16px; padding-top: 24px">
-    <span class="num">03</span>
-    <h3 style="font-size: 22px; font-weight: 400">Originals by inquiry</h3>
-    <p class="body" style="font-size: 16px">Each original is one of a kind and comes with a signed certificate. Ask about one through the contact page.</p>
-  </div>
-</section>
-
-<section class="wrap" style="padding: 120px var(--gutter); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 32px 64px">
-  <h2 class="headline" style="max-width: 760px">Five new works every month. Followers choose what comes next.</h2>
-  <a class="btn" href="contact.html">Join the list</a>
+<section class="wrap section-sm" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 32px 64px">
+  <h2 class="headline" style="max-width: 720px">Five new works every month. Followers choose what comes next.</h2>
+  <a class="btn btn-ghost" href="contact.html">Join the list</a>
 </section>
 
 {{> footer}}

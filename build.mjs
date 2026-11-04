@@ -58,8 +58,23 @@ const P = products.map(decorate);
 const bySlug = Object.fromEntries(P.map((p) => [p.slug, p]));
 const printUrl = (p, base = "") => `${base}prints/${p.slug}.html`;
 
-// ---------- Home: the current release with an editorial rhythm ----------
-function releaseMarkup(list) {
+// ---------- One compact card, used on Home and Shop ----------
+function card(p, base = "") {
+  return `
+<article class="card" data-tags="${p.tags.join(" ")}" data-title="${esc(p.title)}" data-price="${p.price_fmt}" data-href="${printUrl(p, base)}">
+  <a class="card-image" href="${printUrl(p, base)}"><div class="mat-sm"><img src="${base}${p.image}" alt="${esc(p.alt)}" loading="lazy"></div></a>
+  <div class="card-caption">
+    <span class="num">${p.number}</span>
+    <a class="work-title" href="${printUrl(p, base)}">${p.title}</a>
+    <span class="price">${p.price_fmt}</span>
+    <span class="card-meta">${p.medium}${p.year_dot}</span>
+    <a class="link-u" href="${printUrl(p, base)}">Buy print</a>
+  </div>
+</article>`;
+}
+
+// ---------- Home: the current release with an editorial rhythm (kept for reference) ----------
+function releaseMarkupEditorial(list) {
   const buy = (p) => `<a class="link-u buy" href="${printUrl(p)}">Buy print</a>`;
   const full = (p) => `
 <article class="stack rule-t" style="padding: 48px 0 56px">
@@ -113,19 +128,12 @@ const hero = bySlug[site.hero_product] || P[0];
 page({
   file: "index.html", template: pages.home, pageId: "home", base: "",
   title: `${site.name} — ${site.tagline}`, description: site.description, canonical: "", ogImage: hero.image,
-  extra: { hero, release: releaseMarkup(release), release_count_words: words[release.length] || release.length },
+  extra: { hero, release: release.map((p) => card(p)).join("\n"), release_count_words: words[release.length] || release.length },
   jsonld: JSON.stringify({ "@context": "https://schema.org", "@type": "Person", name: site.name, jobTitle: "Artist", url: `https://${site.domain}/`, sameAs: [site.instagram] }),
 });
 
 // ---------- Shop ----------
-const shopCards = P.map((p) => `
-<article class="stack rule-b" style="padding: 56px 0" data-tags="${p.tags.join(" ")}">
-  <a href="${printUrl(p)}"><div class="mat" style="padding: 12px"><img src="${p.image}" alt="${esc(p.alt)}"></div></a>
-  <div class="caption-compact">
-    <span class="num">${p.number}</span><span class="work-title">${p.title}</span><span class="price">${p.price_fmt}</span>
-    <span></span><span>${p.medium}${p.year_dot} · ${p.size}</span><a class="link-u" href="${printUrl(p)}">Buy print</a>
-  </div>
-</article>`).join("\n");
+const shopCards = P.map((p) => card(p)).join("\n");
 page({
   file: "shop.html", template: pages.shop, pageId: "shop", base: "",
   title: `Shop — ${site.name}`, description: `Limited 16 × 20 inch prints by ${site.name}, each made and signed by hand.`, canonical: "shop.html", ogImage: hero.image,
@@ -135,32 +143,35 @@ page({
 // ---------- One page per print ----------
 for (const p of P) {
   const details = (p.details || []).map((d) => `
-<figure class="stack" style="grid-column: span 4; gap: 14px">
+<figure class="thumb">
   <div class="detail-frame"><img src="../${p.image}" alt="${esc(p.title)}, ${esc(d.caption.toLowerCase())}" style="object-position: ${d.position}; transform: scale(${d.zoom}); transform-origin: ${d.position}"></div>
-  <figcaption class="label">${d.caption}</figcaption>
+  <figcaption class="label label-stone">${d.caption}</figcaption>
 </figure>`);
   const ctx = (p.context || []);
   const first = ctx[0] ? `
-<figure class="stack" style="grid-column: span 4; gap: 14px">
-  <img src="../${ctx[0].image}" alt="${esc(ctx[0].alt)}">
-  <figcaption class="label">${ctx[0].caption}</figcaption>
+<figure class="thumb">
+  <button type="button" class="zoom" data-zoom="../${ctx[0].image}" aria-label="View larger"><img src="../${ctx[0].image}" alt="${esc(ctx[0].alt)}"></button>
+  <figcaption class="label label-stone">${ctx[0].caption}</figcaption>
 </figure>` : "";
   const rest = ctx.slice(1);
   const contextRow = rest.length ? `
-<div class="grid12" style="align-items: start">${rest.map((c) => `
-<figure class="stack" style="grid-column: span ${12 / rest.length}; gap: 14px">
-  <img src="../${c.image}" alt="${esc(c.alt)}">
-  <figcaption class="label">${c.caption}</figcaption>
-</figure>`).join("")}</div>` : "";
+<section class="wrap section-sm rule-b stack" style="gap: 28px">
+  <h2 class="label label-gold">The work in the world</h2>
+  <div class="grid3">${rest.map((c) => `
+<figure class="thumb">
+  <button type="button" class="zoom" data-zoom="../${c.image}" aria-label="View larger"><img src="../${c.image}" alt="${esc(c.alt)}" loading="lazy"></button>
+  <figcaption class="label label-stone">${c.caption}</figcaption>
+</figure>`).join("")}</div>
+</section>` : "";
   const more = P.filter((q) => q.slug !== p.slug).slice(0, 4).map((q) => `
 <a class="stack" href="${q.slug}.html" style="gap: 14px">
-  <div class="mat-sm"><img src="../${q.image}" alt="${esc(q.title)}"></div>
+  <div class="mat-sm"><img src="../${q.image}" alt="${esc(q.title)}" loading="lazy"></div>
   <span style="display: flex; justify-content: space-between; gap: 12px; font-size: 15px"><span>${q.number} · ${q.title}</span><span style="color: var(--stone)">${q.price_fmt}</span></span>
 </a>`).join("\n");
   page({
     file: `prints/${p.slug}.html`, template: pages.print, pageId: "shop", base: "../",
     title: `${p.title} — ${site.name}`, description: p.story, canonical: `prints/${p.slug}.html`, ogImage: p.image,
-    extra: { p: { ...p, context_note: ctx.length ? " and the piece in the world" : "" }, perspectives: details.join("") + first, context: contextRow, more },
+    extra: { p, perspectives: details.join("") + first, context: contextRow, more },
     jsonld: JSON.stringify({ "@context": "https://schema.org", "@type": "Product", name: `${p.title} — limited print`, image: `https://${site.domain}/${p.image}`, description: p.story, brand: { "@type": "Person", name: site.name }, offers: { "@type": "Offer", priceCurrency: "USD", price: p.price, availability: "https://schema.org/InStock", url: `https://${site.domain}/prints/${p.slug}.html` } }),
   });
 }

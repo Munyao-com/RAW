@@ -15,6 +15,43 @@
   var product = document.querySelector("[data-product]");
   var addBtn = document.querySelector("[data-add-to-cart]");
 
+  // Lightbox: any .zoom button or card image opens the full-size work.
+  var box = document.createElement("div");
+  box.className = "lightbox";
+  box.setAttribute("role", "dialog");
+  box.setAttribute("aria-label", "Full-size view");
+  box.innerHTML =
+    '<button type="button" class="lightbox-close" aria-label="Close">Close</button>' +
+    '<figure class="lightbox-figure"><img alt=""><figcaption class="lightbox-caption"><span class="lightbox-title"></span><span class="lightbox-price"></span><a class="btn lightbox-buy" href="#">Buy this print</a></figcaption></figure>';
+  document.body.appendChild(box);
+  var boxImg = box.querySelector("img");
+  var boxTitle = box.querySelector(".lightbox-title");
+  var boxPrice = box.querySelector(".lightbox-price");
+  var boxBuy = box.querySelector(".lightbox-buy");
+  function openBox(src, alt, meta) {
+    boxImg.src = src; boxImg.alt = alt || "";
+    meta = meta || {};
+    boxTitle.textContent = meta.title || "";
+    boxPrice.textContent = meta.price || "";
+    if (meta.href) { boxBuy.href = meta.href; boxBuy.style.display = ""; } else { boxBuy.style.display = "none"; }
+    box.classList.add("is-open"); document.body.style.overflow = "hidden";
+  }
+  function closeBox() { box.classList.remove("is-open"); boxImg.src = ""; document.body.style.overflow = ""; }
+  box.addEventListener("click", function (e) { if (!e.target.closest(".lightbox-buy")) closeBox(); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape" && box.classList.contains("is-open")) closeBox(); });
+  document.querySelectorAll("[data-zoom]").forEach(function (el) {
+    el.addEventListener("click", function () { openBox(el.getAttribute("data-zoom"), (el.querySelector("img") || {}).alt); });
+  });
+  document.querySelectorAll(".card-image").forEach(function (a) {
+    a.addEventListener("click", function (e) {
+      if (e.metaKey || e.ctrlKey) return;
+      e.preventDefault();
+      var img = a.querySelector("img");
+      var card = a.closest(".card");
+      openBox(img.src, img.alt, { title: card.getAttribute("data-title"), price: card.getAttribute("data-price"), href: card.getAttribute("data-href") });
+    });
+  });
+
   // Shop page filters (pure client-side, no Shopify needed).
   var filter = document.querySelector("[data-filter]");
   var grid = document.querySelector("[data-shop-grid]");
