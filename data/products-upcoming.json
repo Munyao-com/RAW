@@ -1,0 +1,35 @@
+[
+  {
+    "slug": "young-man-overcoming-obstacle",
+    "number": "06",
+    "title": "Young Man Overcoming Obstacle",
+    "medium": "Charcoal",
+    "year": "",
+    "subject": "Black & white",
+    "tags": [
+      "black-and-white"
+    ],
+    "price": 500,
+    "size": "16 × 20 in",
+    "edition": "[EDITION SIZE]",
+    "paper": "[PAPER STOCK]",
+    "image": "images/young-man.jpg",
+    "alt": "Young Man Overcoming Obstacle — a boy reading in bed by window light, charcoal",
+    "story": "A boy reading in bed by the light of a window. Drawn in charcoal.",
+    "short": "",
+    "details": [
+      {
+        "position": "60% 35%",
+        "zoom": 2.0,
+        "caption": "Detail · The reader"
+      },
+      {
+        "position": "30% 50%",
+        "zoom": 2.0,
+        "caption": "Detail · The light"
+      }
+    ],
+    "context": [],
+    "shopify_product_id": ""
+  }
+]

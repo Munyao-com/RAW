@@ -6,7 +6,9 @@
     "medium": "Pastel pencil on paper",
     "year": "2024",
     "subject": "Father and baby",
-    "tags": ["family"],
+    "tags": [
+      "family"
+    ],
     "price": 500,
     "size": "16 × 20 in",
     "edition": "[EDITION SIZE]",
@@ -16,13 +18,33 @@
     "story": "A newborn asleep in a father's hands. Roosevelt drew this piece to show the quiet strength of Black fathers, a side of family life he feels the world does not see enough. Look closely at the fingers and the folds of skin: every one is built from hundreds of fine strokes of pastel pencil. It is the work that opened the door to the de Young Museum.",
     "short": "",
     "details": [
-      { "position": "48% 30%", "zoom": 2.2, "caption": "Detail · The face" },
-      { "position": "40% 70%", "zoom": 2.0, "caption": "Detail · The hands" }
+      {
+        "position": "48% 30%",
+        "zoom": 2.2,
+        "caption": "Detail · The face"
+      },
+      {
+        "position": "40% 70%",
+        "zoom": 2.0,
+        "caption": "Detail · The hands"
+      }
     ],
     "context": [
-      { "image": "images/studio.jpg", "alt": "Roosevelt drawing Innocence at the easel from a photo reference", "caption": "In progress · The studio" },
-      { "image": "images/deyoung-1.jpg", "alt": "Innocence framed on the wall at the de Young Open, with the artist and a guest", "caption": "On the wall · de Young Open, San Francisco" },
-      { "image": "images/deyoung-2.jpg", "alt": "The artist beside Innocence at the de Young Museum", "caption": "The artist with the work" }
+      {
+        "image": "images/studio.jpg",
+        "alt": "Roosevelt drawing Innocence at the easel from a photo reference",
+        "caption": "In progress · The studio"
+      },
+      {
+        "image": "images/deyoung-1.jpg",
+        "alt": "Innocence framed on the wall at the de Young Open, with the artist and a guest",
+        "caption": "On the wall · de Young Open, San Francisco"
+      },
+      {
+        "image": "images/deyoung-2.jpg",
+        "alt": "The artist beside Innocence at the de Young Museum",
+        "caption": "The artist with the work"
+      }
     ],
     "shopify_product_id": ""
   },
@@ -33,7 +55,10 @@
     "medium": "Charcoal and pastel pencil",
     "year": "",
     "subject": "Man holding baby",
-    "tags": ["family", "black-and-white"],
+    "tags": [
+      "family",
+      "black-and-white"
+    ],
     "price": 500,
     "size": "16 × 20 in",
     "edition": "[EDITION SIZE]",
@@ -43,8 +68,16 @@
     "story": "A father asleep with his newborn against his chest. Drawn in black and white so nothing distracts from the hold.",
     "short": "A father asleep with his newborn against his chest. Drawn in black and white so nothing distracts from the hold.",
     "details": [
-      { "position": "55% 25%", "zoom": 2.0, "caption": "Detail · The father" },
-      { "position": "60% 65%", "zoom": 2.0, "caption": "Detail · The child" }
+      {
+        "position": "55% 25%",
+        "zoom": 2.0,
+        "caption": "Detail · The father"
+      },
+      {
+        "position": "60% 65%",
+        "zoom": 2.0,
+        "caption": "Detail · The child"
+      }
     ],
     "context": [],
     "shopify_product_id": ""
@@ -56,7 +89,9 @@
     "medium": "Pastel pencil",
     "year": "2025",
     "subject": "Mother and baby",
-    "tags": ["family"],
+    "tags": [
+      "family"
+    ],
     "price": 500,
     "size": "16 × 20 in",
     "edition": "[EDITION SIZE]",
@@ -66,8 +101,16 @@
     "story": "A child carried close while the work goes on. Every bead, strand and fold of cloth is drawn by hand.",
     "short": "",
     "details": [
-      { "position": "45% 25%", "zoom": 2.0, "caption": "Detail · The face" },
-      { "position": "50% 75%", "zoom": 2.0, "caption": "Detail · The sling" }
+      {
+        "position": "45% 25%",
+        "zoom": 2.0,
+        "caption": "Detail · The face"
+      },
+      {
+        "position": "50% 75%",
+        "zoom": 2.0,
+        "caption": "Detail · The sling"
+      }
     ],
     "context": [],
     "shopify_product_id": ""
@@ -79,7 +122,9 @@
     "medium": "Pastel pencil",
     "year": "",
     "subject": "Sister carrying brother",
-    "tags": ["family"],
+    "tags": [
+      "family"
+    ],
     "price": 500,
     "size": "16 × 20 in",
     "edition": "[EDITION SIZE]",
@@ -89,8 +134,16 @@
     "story": "A sister carrying her brother on her back under an open sky. The beads, the cloth and the two faces are each built up layer by layer.",
     "short": "",
     "details": [
-      { "position": "40% 15%", "zoom": 2.0, "caption": "Detail · The sister" },
-      { "position": "70% 25%", "zoom": 2.0, "caption": "Detail · The brother" }
+      {
+        "position": "40% 15%",
+        "zoom": 2.0,
+        "caption": "Detail · The sister"
+      },
+      {
+        "position": "70% 25%",
+        "zoom": 2.0,
+        "caption": "Detail · The brother"
+      }
     ],
     "context": [],
     "shopify_product_id": ""
@@ -102,7 +155,9 @@
     "medium": "Pastel on paper",
     "year": "",
     "subject": "Landscape",
-    "tags": ["landscape"],
+    "tags": [
+      "landscape"
+    ],
     "price": 500,
     "size": "16 × 20 in",
     "edition": "[EDITION SIZE]",
@@ -112,31 +167,16 @@
     "story": "A quiet dock at the end of the day. One of the artist's landscapes.",
     "short": "",
     "details": [
-      { "position": "20% 20%", "zoom": 2.0, "caption": "Detail · The light" },
-      { "position": "70% 70%", "zoom": 2.0, "caption": "Detail · The dock" }
-    ],
-    "context": [],
-    "shopify_product_id": ""
-  },
-  {
-    "slug": "young-man-overcoming-obstacle",
-    "number": "06",
-    "title": "Young Man Overcoming Obstacle",
-    "medium": "Charcoal",
-    "year": "",
-    "subject": "Black & white",
-    "tags": ["black-and-white"],
-    "price": 500,
-    "size": "16 × 20 in",
-    "edition": "[EDITION SIZE]",
-    "paper": "[PAPER STOCK]",
-    "image": "images/young-man.jpg",
-    "alt": "Young Man Overcoming Obstacle — a boy reading in bed by window light, charcoal",
-    "story": "A boy reading in bed by the light of a window. Drawn in charcoal.",
-    "short": "",
-    "details": [
-      { "position": "60% 35%", "zoom": 2.0, "caption": "Detail · The reader" },
-      { "position": "30% 50%", "zoom": 2.0, "caption": "Detail · The light" }
+      {
+        "position": "20% 20%",
+        "zoom": 2.0,
+        "caption": "Detail · The light"
+      },
+      {
+        "position": "70% 70%",
+        "zoom": 2.0,
+        "caption": "Detail · The dock"
+      }
     ],
     "context": [],
     "shopify_product_id": ""
