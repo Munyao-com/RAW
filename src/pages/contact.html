@@ -15,7 +15,9 @@
     <img src="images/deyoung-1.jpg" alt="Roosevelt Washington with a guest at the de Young Open" style="max-width: 360px">
   </div>
 
-  <form class="stack" style="grid-column: 7 / span 6; gap: 36px; padding-top: 24px" action="{{form_action}}" method="POST" data-contact-form>
+  <form class="stack" style="grid-column: 7 / span 6; gap: 36px; padding-top: 24px" action="{{form_action}}" method="POST" data-contact-form data-fallback-email="{{email}}" data-instagram="{{instagram}}">
+    <input type="hidden" name="_subject" value="Message from rooseveltwashington.art">
+    <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position: absolute; left: -9999px; width: 1px; height: 1px">
     <div class="grid2 two-up" style="gap: 36px 24px">
       <div class="field"><label for="first">First name</label><input id="first" name="first_name" type="text" required></div>
       <div class="field"><label for="last">Last name</label><input id="last" name="last_name" type="text" required></div>
@@ -38,6 +40,7 @@
     </label>
     <p class="form-privacy">Your name, email and message are used only to answer you, and are kept no longer than needed. See the <a href="{{base}}privacy.html">privacy policy</a>.</p>
     <button type="submit" class="btn" style="min-height: 64px; align-self: flex-start">Send message</button>
+    <p class="form-status" data-form-status role="status" aria-live="polite"></p>
   </form>
 </section>
 

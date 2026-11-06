@@ -52,6 +52,55 @@
     });
   });
 
+  // Contact form. Posts to data/site.json form_action (Formspree or any endpoint
+  // that accepts a form POST and answers JSON). Without one, falls back to the
+  // visitor's email app if the site has an address, otherwise points to Instagram.
+  var form = document.querySelector("[data-contact-form]");
+  if (form) {
+    var action = form.getAttribute("action") || "";
+    var endpoint = /^https?:\/\//.test(action) ? action : "";
+    var fallbackEmail = form.getAttribute("data-fallback-email") || "";
+    var hasEmail = fallbackEmail.indexOf("@") !== -1;
+    var instagram = form.getAttribute("data-instagram") || "";
+    var sendBtn = form.querySelector('button[type="submit"]');
+    var status = form.querySelector("[data-form-status]");
+    var fields = function () {
+      var get = function (n) { var el = form.querySelector('[name="' + n + '"]'); return el ? el.value.trim() : ""; };
+      return { name: (get("first_name") + " " + get("last_name")).trim(), email: get("email"), topic: get("topic"), message: get("message"), newsletter: form.querySelector('[name="newsletter"]').checked };
+    };
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var gotcha = form.querySelector('[name="_gotcha"]');
+      if (gotcha && gotcha.value) return;
+      var f = fields();
+      if (!endpoint) {
+        if (hasEmail) {
+          var body = f.message + "\n\n" + f.name + "\n" + f.email + (f.newsletter ? "\nPlease email me about new prints." : "");
+          location.href = "mailto:" + fallbackEmail + "?subject=" + encodeURIComponent(f.topic + " — from rooseveltwashington.art") + "&body=" + encodeURIComponent(body);
+          status.textContent = "Your email app should open with the message ready to send.";
+        } else {
+          status.innerHTML = 'The message form is not connected yet. For now, reach Roosevelt on <a href="' + instagram + '" rel="noopener" target="_blank">Instagram</a>.';
+        }
+        return;
+      }
+      sendBtn.disabled = true;
+      sendBtn.textContent = "Sending";
+      status.textContent = "";
+      fetch(endpoint, { method: "POST", body: new FormData(form), headers: { Accept: "application/json" } })
+        .then(function (r) { if (!r.ok) throw new Error(String(r.status)); return r.json().catch(function () { return {}; }); })
+        .then(function () {
+          form.reset();
+          sendBtn.textContent = "Sent";
+          status.textContent = "Sent. Roosevelt reads every message himself and will reply by email.";
+        })
+        .catch(function () {
+          sendBtn.disabled = false;
+          sendBtn.textContent = "Send message";
+          status.innerHTML = "Something went wrong and the message was not sent. Please try again" + (hasEmail ? ' or email <a href="mailto:' + fallbackEmail + '">' + fallbackEmail + "</a>." : ".");
+        });
+    });
+  }
+
   // Privacy notice: shown until closed once. Nothing is sent anywhere; the choice stays in this browser.
   var notice = document.querySelector("[data-notice]");
   if (notice) {

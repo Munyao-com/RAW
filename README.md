@@ -60,7 +60,15 @@ Until `shopify.enabled` is true, the buttons are inert and show "Checkout opens 
 
 ## Contact form
 
-`form_action` in `data/site.json` is the endpoint the form posts to. Leave it unset for the demo. For launch, point it at a form service (Formspree, Basin, etc.) that delivers to Roosevelt's inbox; GitHub Pages serves static files only, so the form needs an outside endpoint. When the service is chosen, name it in the "Who else sees it" section of `src/pages/privacy.html`.
+`form_action` in `data/site.json` is the endpoint the form posts to. GitHub Pages serves static files only, so the form needs an outside endpoint. The form posts there by fetch with `Accept: application/json` (Formspree's format; Basin and Web3Forms accept the same), shows "Sent" inline, and carries a `_gotcha` honeypot and a `_subject`. While `form_action` is empty, submitting opens the visitor's email app addressed to `email` in `site.json`, or, while that is still the placeholder, points them to Instagram.
+
+To connect it with Formspree:
+
+1. Sign in at formspree.io (Consuming Carbon has an account under info@consumingcarbon.com; a separate account in Roosevelt's name is cleaner for the long run) and create a form named rooseveltwashington.art.
+2. Set the form's notification email to Roosevelt's address. Formspree sends him a verification email; nothing arrives until he clicks it.
+3. Copy the endpoint (`https://formspree.io/f/xxxxxxxx`) into `form_action` in `data/site.json`, put his address in `email`, rebuild, commit, push.
+4. Name Formspree in the "Who else sees it" section of `src/pages/privacy.html`.
+5. Send a test message from the live contact page and confirm it reaches him.
 
 ## Privacy and terms
 
