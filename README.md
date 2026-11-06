@@ -65,7 +65,7 @@ Until `shopify.enabled` is true, the buttons are inert and show "Checkout opens 
 
 The site is hosted on GitHub Pages. `.github/workflows/pages.yml` builds `dist/` and publishes it on every push to `main`; there is no separate deploy command. Progress shows under the repo's Actions tab, and the previous build stays live until the new one finishes.
 
-Settings that live in the repo's Pages settings, not in the code: custom domain `rooseveltwashington.art` and Enforce HTTPS (on). Both domains are registered at GoDaddy. `rooseveltwashington.art` points at GitHub Pages; `rooseveltwashington.com` still shows the GoDaddy parking page and should be set to forward to `https://rooseveltwashington.art` in the GoDaddy domain settings.
+Settings that live in the repo's Pages settings, not in the code: custom domain `rooseveltwashington.art` and Enforce HTTPS (on). Both domains are registered at GoDaddy. `rooseveltwashington.art` points at GitHub Pages; `rooseveltwashington.com` forwards to it with a permanent (301) redirect set under GoDaddy's DNS > Forwarding tab (set 5 Nov 2026).
 
 ## Before launch
 
