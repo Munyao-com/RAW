@@ -40,7 +40,7 @@ npm run dev       # build + local preview at http://localhost:4173
    - `context` — optional photos of the piece in the studio or on a wall
    - `shopify_product_id` — from Shopify, once the product exists there
 3. `npm run build`. The print page, the Shop card and the Home release update together.
-4. Commit and push. Cloudflare Pages rebuilds and deploys on its own.
+4. Commit and push to `main`. GitHub Pages rebuilds and deploys on its own (about a minute).
 
 `home_release_count` in `data/site.json` controls how many works the Home page shows (default 5). The first entries in `products.json` are the current release; move older ones down the list.
 
@@ -59,23 +59,16 @@ Until `shopify.enabled` is true, the buttons are inert and show "Checkout opens 
 
 ## Contact form
 
-`form_action` in `data/site.json` is the endpoint the form posts to. Leave it unset for the demo. For launch, point it at a form service (Formspree, Basin, Cloudflare Pages Functions, etc.) that delivers to Roosevelt's inbox.
+`form_action` in `data/site.json` is the endpoint the form posts to. Leave it unset for the demo. For launch, point it at a form service (Formspree, Basin, etc.) that delivers to Roosevelt's inbox; GitHub Pages serves static files only, so the form needs an outside endpoint.
 
-## Deploying to Cloudflare Pages
+## Deploying
 
-Connect this repo in Cloudflare Pages with:
+The site is hosted on GitHub Pages. `.github/workflows/pages.yml` builds `dist/` and publishes it on every push to `main`; there is no separate deploy command. Progress shows under the repo's Actions tab, and the previous build stays live until the new one finishes.
 
-- Build command: `npm run build`
-- Build output directory: `dist`
-- Node version: 18 or later
-
-Or deploy from a machine with Wrangler logged in: `npm run deploy`.
-
-Domains: point `rooseveltwashington.art` at the Pages project; set `rooseveltwashington.com` to forward to it (both are registered at GoDaddy).
+Settings that live in the repo's Pages settings, not in the code: custom domain `rooseveltwashington.art` and Enforce HTTPS (on). Both domains are registered at GoDaddy. `rooseveltwashington.art` points at GitHub Pages; `rooseveltwashington.com` still shows the GoDaddy parking page and should be set to forward to `https://rooseveltwashington.art` in the GoDaddy domain settings.
 
 ## Before launch
 
 - Replace the 800 px artwork files with full-resolution scans or photos.
 - Fill `[EDITION SIZE]`, `[PAPER STOCK]` and `[EMAIL ADDRESS]`.
-- Set `noindex: false` in `data/site.json` so search engines can index the site.
 - Confirm the work titles with Roosevelt (his file names were used).

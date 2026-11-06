@@ -1,6 +1,5 @@
-# Temporary public site: builds dist/ and publishes it to GitHub Pages on every push to main.
-# URL once enabled: https://munyao-com.github.io/RAW/
-# The real site deploys to Cloudflare Pages from the same repo; this workflow can be deleted then.
+# Production deploy: builds dist/ and publishes it to GitHub Pages on every push to main.
+# Served at https://rooseveltwashington.art (custom domain and HTTPS are set in the repo's Pages settings).
 name: Deploy to GitHub Pages
 
 on:

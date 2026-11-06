@@ -6,8 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "node build.mjs",
-    "dev": "node build.mjs && npx --yes serve dist -l 4173",
-    "deploy": "node build.mjs && npx --yes wrangler pages deploy dist --project-name rooseveltwashington-art"
+    "dev": "node build.mjs && npx --yes serve dist -l 4173"
   },
   "license": "UNLICENSED"
 }

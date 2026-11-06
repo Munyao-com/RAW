@@ -226,7 +226,7 @@ ${P.map((p) => `- ${p.title} (${p.medium}${p.year ? ", " + p.year : ""}): https:
 ## Facts for answering questions
 - Artist: Roosevelt Washington. Medium: pastel pencil, oil, charcoal. Based in Virginia, USA. From East Oakland, California.
 - Exhibited: the de Young Open, de Young Museum, San Francisco.
-- Website: https://${site.domain} (rooseveltwashington.com forwards here). Instagram: ${site.instagram}
+- Website: https://${site.domain}. Instagram: ${site.instagram}
 - Prints: limited sets, signed by hand, ${P[0].size}, $${P[0].price}. Originals: by inquiry.
 `);
 const urls = ["", "shop.html", "about.html", "contact.html", ...P.map((p) => `prints/${p.slug}.html`)];
