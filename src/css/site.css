@@ -129,6 +129,19 @@ body[data-page="contact"] .nav a[data-page="contact"] { color: var(--gold); }
 .lightbox-buy { min-height: 48px; padding: 0 28px; }
 .lightbox-close { position: absolute; top: 20px; right: 24px; min-width: 44px; min-height: 44px; background: transparent; border: 0; color: #fff; font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; cursor: pointer; }
 
+/* Share */
+.share-btn { background: transparent; border: 0; padding: 0 0 4px; color: var(--white); cursor: pointer; font-family: var(--font); font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; }
+.share-btn:hover { color: var(--gold); }
+.footer-links .social .share-btn { color: var(--stone); margin-left: 32px; border: 0; }
+.footer-links .social .share-btn:hover { color: var(--gold); }
+.share-menu { position: fixed; inset: 0; background: rgba(10,10,10,0.9); display: none; align-items: center; justify-content: center; padding: 20px; z-index: 60; }
+.share-menu.is-open { display: flex; }
+.share-card { width: 100%; max-width: 360px; background: var(--ink); border: 1px solid var(--rule-strong); padding: 28px; display: flex; flex-direction: column; gap: 4px; }
+.share-heading { font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+.share-opt { display: block; width: 100%; text-align: left; padding: 14px 0; border: 0; border-top: 1px solid var(--rule); background: transparent; color: var(--white); font-family: var(--font); font-size: 17px; cursor: pointer; }
+.share-opt:hover { color: var(--gold); }
+.share-close { margin-top: 16px; min-height: 44px; border: 1px solid var(--rule-strong); background: transparent; color: var(--bone); font-family: var(--font); font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; cursor: pointer; }
+
 /* Hero (full-bleed variant, kept for the canvas) */
 .hero { position: relative; height: 880px; overflow: hidden; background: #000; }
 .hero img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; object-position: center; }

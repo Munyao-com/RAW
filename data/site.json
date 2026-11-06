@@ -9,7 +9,7 @@
   "hero_product": "innocence",
   "home_release_count": 5,
   "year": "2026",
-  "noindex": true,
+  "noindex": false,
   "shopify": {
     "enabled": false,
     "domain": "",

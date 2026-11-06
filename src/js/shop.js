@@ -52,6 +52,50 @@
     });
   });
 
+  // Share: phone share sheet when available, otherwise a small menu.
+  var shareMenu = document.createElement("div");
+  shareMenu.className = "share-menu";
+  shareMenu.setAttribute("role", "dialog");
+  shareMenu.setAttribute("aria-label", "Share");
+  shareMenu.innerHTML =
+    '<div class="share-card">' +
+    '<p class="share-heading">Share</p>' +
+    '<a class="share-opt" data-net="whatsapp" href="#" target="_blank" rel="noopener">WhatsApp</a>' +
+    '<a class="share-opt" data-net="sms" href="#">Text message</a>' +
+    '<a class="share-opt" data-net="email" href="#">Email</a>' +
+    '<button type="button" class="share-opt" data-net="copy">Copy link</button>' +
+    '<button type="button" class="share-close">Close</button>' +
+    "</div>";
+  document.body.appendChild(shareMenu);
+  function closeShare() { shareMenu.classList.remove("is-open"); }
+  shareMenu.addEventListener("click", function (e) { if (e.target === shareMenu || e.target.closest(".share-close")) closeShare(); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeShare(); });
+  function openShareMenu(text, url) {
+    var enc = encodeURIComponent;
+    shareMenu.querySelector('[data-net="whatsapp"]').href = "https://wa.me/?text=" + enc(text);
+    shareMenu.querySelector('[data-net="sms"]').href = "sms:?&body=" + enc(text);
+    shareMenu.querySelector('[data-net="email"]').href = "mailto:?subject=" + enc("Roosevelt Washington — fine art by hand") + "&body=" + enc(text);
+    var copy = shareMenu.querySelector('[data-net="copy"]');
+    copy.textContent = "Copy link";
+    copy.onclick = function () {
+      var done = function () { copy.textContent = "Copied"; setTimeout(closeShare, 900); };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(done, done);
+      else { window.prompt("Copy this link", url); done(); }
+    };
+    shareMenu.classList.add("is-open");
+  }
+  document.querySelectorAll("[data-share]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var text = btn.getAttribute("data-share-text") || document.title;
+      var url = btn.getAttribute("data-share-url") || location.href;
+      if (navigator.share) {
+        navigator.share({ title: "Roosevelt Washington", text: text.replace(url, "").trim(), url: url }).catch(function () {});
+      } else {
+        openShareMenu(text, url);
+      }
+    });
+  });
+
   // Shop page filters (pure client-side, no Shopify needed).
   var filter = document.querySelector("[data-filter]");
   var grid = document.querySelector("[data-shop-grid]");

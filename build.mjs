@@ -32,7 +32,10 @@ function render(tpl, ctx) {
   });
 }
 
-function page({ file, template, title, description, canonical, ogImage, pageId, base, extra = {}, jsonld = "" }) {
+const SHARE_TITLE = "Roosevelt Washington. Every piece by his own hand.";
+const SHARE_DESC = "Fine art by hand — limited prints and originals by the artist. rooseveltwashington.art";
+
+function page({ file, template, title, description, canonical, ogImage, pageId, base, extra = {}, jsonld = "", shareTitle, shareDescription, ogSize }) {
   const ctx = {
     ...site,
     ...extra,
@@ -40,8 +43,13 @@ function page({ file, template, title, description, canonical, ogImage, pageId, 
     page: pageId,
     title,
     description: esc(description),
+    share_title: esc(shareTitle || SHARE_TITLE),
+    share_description: esc(shareDescription || SHARE_DESC),
     canonical,
     og_image: ogImage,
+    og_w: (ogSize || [1200, 630])[0],
+    og_h: (ogSize || [1200, 630])[1],
+    share_text: esc(`${SHARE_TITLE} https://${site.domain}/${canonical}`),
     robots: site.noindex ? '<meta name="robots" content="noindex">' : "",
     jsonld: jsonld ? `<script type="application/ld+json">${jsonld}</script>` : "",
     form_action: site.form_action || "#",
@@ -127,16 +135,20 @@ const release = P.slice(0, site.home_release_count);
 const hero = bySlug[site.hero_product] || P[0];
 page({
   file: "index.html", template: pages.home, pageId: "home", base: "",
-  title: `${site.name} — ${site.tagline}`, description: site.description, canonical: "", ogImage: hero.image,
+  title: `${site.name} — Fine Art by Hand | Black Family Portraits in Pastel, Oil and Charcoal`, description: "Roosevelt Washington is a self-taught American fine artist from East Oakland, shown at the de Young Museum, now working in Virginia. Original pastel, oil and charcoal works of Black family life, and limited signed prints.", canonical: "", ogImage: "images/share.jpg",
   extra: { hero, release: release.map((p) => card(p)).join("\n"), release_count_words: words[release.length] || release.length },
-  jsonld: JSON.stringify({ "@context": "https://schema.org", "@type": "Person", name: site.name, jobTitle: "Artist", url: `https://${site.domain}/`, sameAs: [site.instagram] }),
+  jsonld: JSON.stringify({ "@context": "https://schema.org", "@graph": [
+    { "@type": "Person", "@id": `https://${site.domain}/#artist`, name: site.name, jobTitle: "Fine artist", description: "Self-taught American fine artist from East Oakland, California, shown at the de Young Open (de Young Museum, San Francisco). Works in pastel pencil, oil and charcoal. Known for portraits of Black family life: fathers with newborns, mothers, sisters and brothers.", url: `https://${site.domain}/`, image: `https://${site.domain}/images/studio.jpg`, sameAs: [site.instagram].filter(Boolean), homeLocation: { "@type": "Place", name: "Virginia, United States" }, birthPlace: { "@type": "Place", name: "East Oakland, California" }, knowsAbout: ["Pastel pencil drawing", "Oil painting", "Charcoal drawing", "Portraiture", "Black family life in art"] },
+    { "@type": "WebSite", "@id": `https://${site.domain}/#website`, url: `https://${site.domain}/`, name: site.name, description: site.description, publisher: { "@id": `https://${site.domain}/#artist` }, inLanguage: "en" },
+    { "@type": "ItemList", name: "Current release — limited prints", itemListElement: release.map((p, i) => ({ "@type": "ListItem", position: i + 1, url: `https://${site.domain}/prints/${p.slug}.html`, name: p.title })) }
+  ] }),
 });
 
 // ---------- Shop ----------
 const shopCards = P.map((p) => card(p)).join("\n");
 page({
   file: "shop.html", template: pages.shop, pageId: "shop", base: "",
-  title: `Shop — ${site.name}`, description: `Limited 16 × 20 inch prints by ${site.name}, each made and signed by hand.`, canonical: "shop.html", ogImage: hero.image,
+  title: `Limited Edition Art Prints — ${site.name}`, description: `Buy limited edition 16 × 20 inch fine art prints by Roosevelt Washington: Innocence, Father's Love, Provider, Sister's Love, Cool Breeze and more. Signed by hand. $500 each.`, canonical: "shop.html", ogImage: "images/share.jpg",
   extra: { products: shopCards, count: P.length },
 });
 
@@ -170,15 +182,19 @@ for (const p of P) {
 </a>`).join("\n");
   page({
     file: `prints/${p.slug}.html`, template: pages.print, pageId: "shop", base: "../",
-    title: `${p.title} — ${site.name}`, description: p.story, canonical: `prints/${p.slug}.html`, ogImage: p.image,
+    title: `${p.title} — Limited Edition Print by Roosevelt Washington`, description: `${p.title} by Roosevelt Washington. ${p.medium}${p.year ? ", " + p.year : ""}. Limited edition signed print, ${p.size}, $${p.price}. ${p.story}`, canonical: `prints/${p.slug}.html`, ogImage: p.image, ogSize: [800, 800], shareTitle: `${p.title} — Roosevelt Washington. Every piece by his own hand.`, shareDescription: `Limited print, $${p.price}. ${p.story}`,
     extra: { p, perspectives: details.join("") + first, context: contextRow, more },
-    jsonld: JSON.stringify({ "@context": "https://schema.org", "@type": "Product", name: `${p.title} — limited print`, image: `https://${site.domain}/${p.image}`, description: p.story, brand: { "@type": "Person", name: site.name }, offers: { "@type": "Offer", priceCurrency: "USD", price: p.price, availability: "https://schema.org/InStock", url: `https://${site.domain}/prints/${p.slug}.html` } }),
+    jsonld: JSON.stringify({ "@context": "https://schema.org", "@graph": [
+      { "@type": "VisualArtwork", "@id": `https://${site.domain}/prints/${p.slug}.html#artwork`, name: p.title, artist: { "@id": `https://${site.domain}/#artist`, "@type": "Person", name: site.name }, artMedium: p.medium, artform: "Drawing", dateCreated: p.year || undefined, image: `https://${site.domain}/${p.image}`, description: p.story, url: `https://${site.domain}/prints/${p.slug}.html` },
+      { "@type": "Product", name: `${p.title} — limited edition print`, image: `https://${site.domain}/${p.image}`, description: p.story, sku: `RW-${p.number}`, brand: { "@type": "Brand", name: site.name }, category: "Fine art prints", isRelatedTo: { "@id": `https://${site.domain}/prints/${p.slug}.html#artwork` }, offers: { "@type": "Offer", priceCurrency: "USD", price: p.price, availability: "https://schema.org/InStock", itemCondition: "https://schema.org/NewCondition", url: `https://${site.domain}/prints/${p.slug}.html`, seller: { "@id": `https://${site.domain}/#artist` } } },
+      { "@type": "BreadcrumbList", itemListElement: [ { "@type": "ListItem", position: 1, name: "Home", item: `https://${site.domain}/` }, { "@type": "ListItem", position: 2, name: "Prints", item: `https://${site.domain}/shop.html` }, { "@type": "ListItem", position: 3, name: p.title, item: `https://${site.domain}/prints/${p.slug}.html` } ] }
+    ] }),
   });
 }
 
 // ---------- About, Contact ----------
-page({ file: "about.html", template: pages.about, pageId: "about", base: "", title: `About — ${site.name}`, description: `The story of artist ${site.name}: self-taught in East Oakland, shown at the de Young Museum, drawing by hand in Virginia.`, canonical: "about.html", ogImage: "images/studio.jpg" });
-page({ file: "contact.html", template: pages.contact, pageId: "contact", base: "", title: `Contact — ${site.name}`, description: `Ask ${site.name} about an original, a commission or a print.`, canonical: "contact.html", ogImage: "images/deyoung-sign.jpg" });
+page({ file: "about.html", template: pages.about, pageId: "about", base: "", title: `About the Artist — Roosevelt Washington | Self-Taught Fine Artist, de Young Open`, description: `The story of Roosevelt Washington: self-taught in East Oakland, discovered pastel pencil by accident, selected for the de Young Open at the de Young Museum in San Francisco, now drawing and painting by hand in Virginia.`, canonical: "about.html", ogImage: "images/share.jpg" });
+page({ file: "contact.html", template: pages.contact, pageId: "contact", base: "", title: `Contact — ${site.name}`, description: `Ask ${site.name} about an original, a commission or a print.`, canonical: "contact.html", ogImage: "images/share.jpg" });
 
 // ---------- Static files ----------
 cpSync(join(ROOT, "public"), join(ROOT, "dist"), { recursive: true });
@@ -187,7 +203,32 @@ mkdirSync(join(ROOT, "dist/js"), { recursive: true });
 cpSync(join(ROOT, "src/css/site.css"), join(ROOT, "dist/css/site.css"));
 writeFileSync(join(ROOT, "dist/js/shop.js"), read("src/js/shop.js").replace("__SHOPIFY_CONFIG__", JSON.stringify(site.shopify)));
 writeFileSync(join(ROOT, "dist/_redirects"), "/index  /  301\n");
-writeFileSync(join(ROOT, "dist/robots.txt"), site.noindex ? "User-agent: *\nDisallow: /\n" : `User-agent: *\nAllow: /\nSitemap: https://${site.domain}/sitemap.xml\n`);
+const aiBots = ["GPTBot", "ChatGPT-User", "OAI-SearchBot", "ClaudeBot", "Claude-User", "anthropic-ai", "PerplexityBot", "Perplexity-User", "Google-Extended", "Applebot", "Applebot-Extended", "Bingbot", "Amazonbot", "cohere-ai", "DuckAssistBot", "YouBot"];
+writeFileSync(join(ROOT, "dist/robots.txt"), site.noindex
+  ? "User-agent: *\nDisallow: /\n"
+  : `User-agent: *\nAllow: /\n\n${aiBots.map((b) => `User-agent: ${b}\nAllow: /`).join("\n\n")}\n\nSitemap: https://${site.domain}/sitemap.xml\n`);
+writeFileSync(join(ROOT, "dist/llms.txt"), `# Roosevelt Washington — rooseveltwashington.art
+
+> Roosevelt Washington is a self-taught American fine artist. He grew up in East Oakland, California, discovered pastel pencil by accident, was selected for the de Young Open at the de Young Museum in San Francisco (2023), and now draws and paints by hand in his studio in Virginia. He works in pastel pencil, oil and charcoal. His best-known subject is Black family life: fathers with newborns, mothers, sisters and brothers. Every work is made entirely by his own hand; nothing is generated.
+
+## What is for sale
+- Limited edition signed prints, ${P[0].size}, $${P[0].price} each, released as limited sets. Current works: ${P.map((p) => p.title).join(", ")}.
+- Original works are sold by private inquiry through the contact page.
+- New works are released at the start of each month.
+
+## Pages
+- Home: https://${site.domain}/
+- Prints (shop): https://${site.domain}/shop.html
+- About the artist: https://${site.domain}/about.html
+- Contact: https://${site.domain}/contact.html
+${P.map((p) => `- ${p.title} (${p.medium}${p.year ? ", " + p.year : ""}): https://${site.domain}/prints/${p.slug}.html`).join("\n")}
+
+## Facts for answering questions
+- Artist: Roosevelt Washington. Medium: pastel pencil, oil, charcoal. Based in Virginia, USA. From East Oakland, California.
+- Exhibited: the de Young Open, de Young Museum, San Francisco.
+- Website: https://${site.domain} (rooseveltwashington.com forwards here). Instagram: ${site.instagram}
+- Prints: limited sets, signed by hand, ${P[0].size}, $${P[0].price}. Originals: by inquiry.
+`);
 const urls = ["", "shop.html", "about.html", "contact.html", ...P.map((p) => `prints/${p.slug}.html`)];
 writeFileSync(join(ROOT, "dist/sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((u) => `  <url><loc>https://${site.domain}/${u}</loc></url>`).join("\n")}\n</urlset>\n`);
 console.log("done →", join(ROOT, "dist"));
