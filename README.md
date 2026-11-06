@@ -9,7 +9,7 @@ Design rules live in the Claude Design canvas ("Roosevelt Washington — rooseve
 ```
 data/site.json        name, domain, email, Instagram, hero painting, Shopify settings
 data/products.json    one entry per print — this is the file you edit most
-src/pages/*.html      page templates (home, shop, print, about, contact)
+src/pages/*.html      page templates (home, shop, print, about, contact, privacy, terms)
 src/partials/*.html   head, header, footer
 src/css/site.css      the whole stylesheet
 src/js/shop.js        shop filters + Shopify Buy Button wiring
@@ -53,13 +53,18 @@ The site stays static; Shopify runs the cart and payment.
 3. Enable the **Buy Button** sales channel and create a Storefront access token.
 4. In `data/site.json` set `shopify.enabled: true`, `shopify.domain` (`your-store.myshopify.com`) and `shopify.storefront_access_token`.
 5. Put each product's Storefront ID in `shopify_product_id` in `products.json`.
-6. Rebuild and deploy. "Add to cart" and the Cart link in the header go live; the cart drawer is styled to match the site.
+6. In Shopify, Settings > Policies: paste the text of `privacy.html` and `terms.html` (returns, shipping and terms of service) so the checkout links to the same wording as the site. Shopify's checkout shows its own cookie consent where the law requires it.
+7. Rebuild and deploy. "Add to cart" and the Cart link in the header go live; the cart drawer is styled to match the site.
 
 Until `shopify.enabled` is true, the buttons are inert and show "Checkout opens soon" when clicked.
 
 ## Contact form
 
-`form_action` in `data/site.json` is the endpoint the form posts to. Leave it unset for the demo. For launch, point it at a form service (Formspree, Basin, etc.) that delivers to Roosevelt's inbox; GitHub Pages serves static files only, so the form needs an outside endpoint.
+`form_action` in `data/site.json` is the endpoint the form posts to. Leave it unset for the demo. For launch, point it at a form service (Formspree, Basin, etc.) that delivers to Roosevelt's inbox; GitHub Pages serves static files only, so the form needs an outside endpoint. When the service is chosen, name it in the "Who else sees it" section of `src/pages/privacy.html`.
+
+## Privacy and terms
+
+`src/pages/privacy.html` and `src/pages/terms.html`, linked from the footer and from the contact form. They describe what the site does today: no cookies, no analytics, no tracking, so there is no consent banner, only a one-line notice (`data-notice` in the footer partial, remembered in local storage). If analytics, embedded media or any other cookie-setting service is ever added, update the privacy policy first and turn the notice into a consent prompt. Both pages carry a "Last updated" date in the template; change it when the text changes. The terms cover limited editions, colour variance, shipping, damage, returns (14 days for prints; EU and UK withdrawal rights), commissions (50% deposit), copyright, liability and Virginia law. They are plain-language drafts and should be read by a lawyer before online checkout opens.
 
 ## Deploying
 

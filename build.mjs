@@ -18,6 +18,8 @@ const pages = {
   print: read("src/pages/print.html"),
   about: read("src/pages/about.html"),
   contact: read("src/pages/contact.html"),
+  privacy: read("src/pages/privacy.html"),
+  terms: read("src/pages/terms.html"),
 };
 
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
@@ -196,6 +198,10 @@ for (const p of P) {
 page({ file: "about.html", template: pages.about, pageId: "about", base: "", title: `About the Artist — Roosevelt Washington | Self-Taught Fine Artist, de Young Open`, description: `The story of Roosevelt Washington: self-taught in East Oakland, discovered pastel pencil by accident, selected for the de Young Open at the de Young Museum in San Francisco, now drawing and painting by hand in Virginia.`, canonical: "about.html", ogImage: "images/share.jpg" });
 page({ file: "contact.html", template: pages.contact, pageId: "contact", base: "", title: `Contact — ${site.name}`, description: `Ask ${site.name} about an original, a commission or a print.`, canonical: "contact.html", ogImage: "images/share.jpg" });
 
+// ---------- Privacy, Terms ----------
+page({ file: "privacy.html", template: pages.privacy, pageId: "privacy", base: "", title: `Privacy Policy — ${site.name}`, description: `How ${site.domain} treats your information: no cookies, no tracking, and what happens to what you send through the contact form or give at checkout.`, canonical: "privacy.html", ogImage: "images/share.jpg" });
+page({ file: "terms.html", template: pages.terms, pageId: "terms", base: "", title: `Terms and Conditions — ${site.name}`, description: `Terms for buying prints, originals and commissions from ${site.name}: pricing, shipping, returns, damage, commissions, copyright and liability.`, canonical: "terms.html", ogImage: "images/share.jpg" });
+
 // ---------- Static files ----------
 cpSync(join(ROOT, "public"), join(ROOT, "dist"), { recursive: true });
 mkdirSync(join(ROOT, "dist/css"), { recursive: true });
@@ -221,6 +227,8 @@ writeFileSync(join(ROOT, "dist/llms.txt"), `# Roosevelt Washington — roosevelt
 - Prints (shop): https://${site.domain}/shop.html
 - About the artist: https://${site.domain}/about.html
 - Contact: https://${site.domain}/contact.html
+- Privacy policy: https://${site.domain}/privacy.html
+- Terms and conditions (prints, originals, commissions, returns): https://${site.domain}/terms.html
 ${P.map((p) => `- ${p.title} (${p.medium}${p.year ? ", " + p.year : ""}): https://${site.domain}/prints/${p.slug}.html`).join("\n")}
 
 ## Facts for answering questions
@@ -229,6 +237,6 @@ ${P.map((p) => `- ${p.title} (${p.medium}${p.year ? ", " + p.year : ""}): https:
 - Website: https://${site.domain} (rooseveltwashington.com forwards here). Instagram: ${site.instagram}
 - Prints: limited sets, signed by hand, ${P[0].size}, $${P[0].price}. Originals: by inquiry.
 `);
-const urls = ["", "shop.html", "about.html", "contact.html", ...P.map((p) => `prints/${p.slug}.html`)];
+const urls = ["", "shop.html", "about.html", "contact.html", "privacy.html", "terms.html", ...P.map((p) => `prints/${p.slug}.html`)];
 writeFileSync(join(ROOT, "dist/sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((u) => `  <url><loc>https://${site.domain}/${u}</loc></url>`).join("\n")}\n</urlset>\n`);
 console.log("done →", join(ROOT, "dist"));

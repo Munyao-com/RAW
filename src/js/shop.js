@@ -52,6 +52,18 @@
     });
   });
 
+  // Privacy notice: shown until closed once. Nothing is sent anywhere; the choice stays in this browser.
+  var notice = document.querySelector("[data-notice]");
+  if (notice) {
+    var seen = false;
+    try { seen = localStorage.getItem("rw_notice_v1") === "1"; } catch (e) {}
+    if (!seen) notice.classList.add("is-open");
+    notice.querySelector("[data-notice-close]").addEventListener("click", function () {
+      notice.classList.remove("is-open");
+      try { localStorage.setItem("rw_notice_v1", "1"); } catch (e) {}
+    });
+  }
+
   // Share: phone share sheet when available, otherwise a small menu.
   var shareMenu = document.createElement("div");
   shareMenu.className = "share-menu";
